@@ -18,6 +18,7 @@ ENV EASYRSA=/usr/share/easy-rsa \
     EASYRSA_PKI=$OPENVPN/pki \ 
     EASYRSA_FILE=$EASYRSA/easyrsa
 
+# use randmon passphrase and log it to /psk "sed -i 's/printf "%s" "$kpass" > "$out_key_pass_tmp"/shuf -i 10000000-99999999 -n 1 > "/psk" && cat "/psk" >  "$out_key_pass_tmp"/' easyrsa"
 RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649i\\t\shuf \x2Di 10000000\x2D99999999 \x2Dn 1 \x3E \x22\x2Fpsk\x22 \x26\x26 cat \x22\x2Fpsk\x22 \x3E  \x22$out\x5Fkey\x5Fpass\x5Ftmp\x22' $EASYRSA_FILE    
 
 VOLUME ["/etc/openvpn"]
