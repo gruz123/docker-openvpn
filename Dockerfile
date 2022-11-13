@@ -19,10 +19,12 @@ ENV EASYRSA=/usr/share/easy-rsa \
     EASYRSA_FILE=/usr/share/easy-rsa/easyrsa
 
 # use randmon passphrase and log it to /psk
-# using inside container: sed -i '649,662d' $EASYRSA_FILE && sed -i '649i\\t\shuf \x2Di 10000000\x2D99999999 \x2Dn 1 \x3E \x22\x2Fpsk\x22 \x26\x26 cat \x22\x2Fpsk\x22 \x3E  \x22$out\x5Fkey\x5Fpass\x5Ftmp\x22' $EASYRSA_FILE    
-RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649ishuf -i 10000000-99999999 -n 1 > "/psk" && cat "/psk" >  "$out_key_pass_tmp"' $EASYRSA_FILE
+# using inside container: sed -i '649i\\t\shuf \x2Di 10000000\x2D99999999 \x2Dn 1 \x3E \x22\x2Fpsk\x22 \x26\x26 cat \x22\x2Fpsk\x22 \x3E  \x22$out\x5Fkey\x5Fpass\x5Ftmp\x22' $EASYRSA_FILE    
+#RUN sed -i '649ishuf -i 10000000-99999999 -n 1 > "/psk" && cat "/psk" >  "$out_key_pass_tmp"' $EASYRSA_FILE
+RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649ikpass=$(shuf -i 10000000-99999999 -n 1)' $EASYRSA_FILE && \ 
+sed -i '650iprintf "%s" "$kpass" > "$out_key_pass_tmp" && printf "%s" "$kpass" > "/psk"' $EASYRSA_FILE
 
-VOLUME ["/etc/openvpn"]
+VOLUME ["/etc/openvpn"]ls
 
 # Internally uses port 1194/udp, remap using `docker run -p 443:1194/tcp`
 EXPOSE 1194/udp
