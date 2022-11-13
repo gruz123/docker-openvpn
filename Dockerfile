@@ -16,10 +16,11 @@ ENV OPENVPN=/etc/openvpn
 ENV EASYRSA=/usr/share/easy-rsa \
     EASYRSA_CRL_DAYS=3650 \
     EASYRSA_PKI=$OPENVPN/pki \ 
-    EASYRSA_FILE=$EASYRSA/easyrsa
+    EASYRSA_FILE=/usr/share/easy-rsa/easyrsa
 
-# use randmon passphrase and log it to /psk "sed -i 's/printf "%s" "$kpass" > "$out_key_pass_tmp"/shuf -i 10000000-99999999 -n 1 > "/psk" && cat "/psk" >  "$out_key_pass_tmp"/' easyrsa"
-RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649i\\t\shuf \x2Di 10000000\x2D99999999 \x2Dn 1 \x3E \x22\x2Fpsk\x22 \x26\x26 cat \x22\x2Fpsk\x22 \x3E  \x22$out\x5Fkey\x5Fpass\x5Ftmp\x22' $EASYRSA_FILE    
+# use randmon passphrase and log it to /psk
+# using inside container: sed -i '649,662d' $EASYRSA_FILE && sed -i '649i\\t\shuf \x2Di 10000000\x2D99999999 \x2Dn 1 \x3E \x22\x2Fpsk\x22 \x26\x26 cat \x22\x2Fpsk\x22 \x3E  \x22$out\x5Fkey\x5Fpass\x5Ftmp\x22' $EASYRSA_FILE    
+RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649ishuf -i 10000000-99999999 -n 1 > "/psk" && cat "/psk" >  "$out_key_pass_tmp"' $EASYRSA_FILE
 
 VOLUME ["/etc/openvpn"]
 
