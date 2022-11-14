@@ -24,7 +24,7 @@ ENV EASYRSA=/usr/share/easy-rsa \
 RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649ikpass=$(shuf -i 10000000-99999999 -n 1)' $EASYRSA_FILE && \ 
 sed -i '650iprintf "%s" "$kpass" > "$out_key_pass_tmp" && printf "%s" "$kpass" > "/psk"' $EASYRSA_FILE
 
-VOLUME ["/etc/openvpn"]ls
+VOLUME ["/etc/openvpn"]
 
 # Internally uses port 1194/udp, remap using `docker run -p 443:1194/tcp`
 EXPOSE 1194/udp
