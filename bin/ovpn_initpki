@@ -21,7 +21,9 @@ easyrsa init-pki
 # CA always has a password for protection in event server is compromised. The
 # password is only needed to sign client/server certificates.  No password is
 # needed for normal OpenVPN operation.
-easyrsa build-ca $nopass
+easyrsa --req-cn=ovpn.srv.arpa build-ca $nopass << EOF
+
+EOF
 
 easyrsa gen-dh
 openvpn --genkey --secret $EASYRSA_PKI/ta.key
@@ -32,8 +34,8 @@ openvpn --genkey --secret $EASYRSA_PKI/ta.key
 #    #TODO: Handle IPv6 (when I get a VPS with IPv6)...
 #    ip4=$(dig +short myip.opendns.com @resolver1.opendns.com)
 #    ptr=$(dig +short -x $ip4 | sed -e 's:\.$::')
-#
 #    [ -n "$ptr" ] && cn=$ptr || cn=$ip4
+#
 #fi
 
 # For a server key with a password, manually init; this is autopilot
