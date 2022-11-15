@@ -21,7 +21,7 @@ easyrsa init-pki
 # CA always has a password for protection in event server is compromised. The
 # password is only needed to sign client/server certificates.  No password is
 # needed for normal OpenVPN operation.
-easyrsa --req-cn=ovpn.srv.arpa build-ca $nopass << EOF
+easyrsa build-ca $nopass << EOF
 
 EOF
 
