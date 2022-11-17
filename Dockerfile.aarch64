@@ -3,11 +3,11 @@
 # Smallest base image
 FROM aarch64/alpine:3.5
 
-LABEL maintainer="Kyle Manna <kyle@kylemanna.com>"
+LABEL maintainer="ArtemK <gruz123@gmail.com>"
 
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories && \
     echo "http://dl-4.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
-    apk add --update openvpn iptables bash easy-rsa openvpn-auth-pam google-authenticator pamtester && \
+    apk add --update openvpn iptables curl ssmtp s-nail bash easy-rsa openvpn-auth-pam google-authenticator pamtester && \
     ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
@@ -15,11 +15,17 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community/" >> /etc/apk/reposi
 ENV OPENVPN /etc/openvpn
 ENV EASYRSA /usr/share/easy-rsa
 ENV EASYRSA_PKI $OPENVPN/pki
+    EASYRSA_FILE=/usr/share/easy-rsa/easyrsa \
+ENV SSMTPC /etc/ssmtp/ssmtp.conf
 
 # Prevents refused client connection because of an expired CRL
 ENV EASYRSA_CRL_DAYS 3650
 
 VOLUME ["/etc/openvpn"]
+
+# use randmon passphrase and log it to /psk
+RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649ikpass=$(shuf -i 10000000-99999999 -n 1)' $EASYRSA_FILE && \ 
+sed -i '650iprintf "%s" "$kpass" > "$out_key_pass_tmp" && printf "%s" "$kpass" > "$OPENVPN/psk"' $EASYRSA_FILE
 
 # Internally uses port 1194/udp, remap using `docker run -p 443:1194/tcp`
 EXPOSE 1194/udp
