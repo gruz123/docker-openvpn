@@ -15,7 +15,7 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community/" >> /etc/apk/reposi
 ENV OPENVPN /etc/openvpn
 ENV EASYRSA /usr/share/easy-rsa
 ENV EASYRSA_PKI $OPENVPN/pki
-    EASYRSA_FILE=/usr/share/easy-rsa/easyrsa \
+ENV EASYRSA_FILE /usr/share/easy-rsa/easyrsa
 ENV SSMTPC /etc/ssmtp/ssmtp.conf
 
 # Prevents refused client connection because of an expired CRL
