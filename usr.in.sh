@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Set prefix(name)"
+echo "Set prefix(Name)"
 read CLIENTNAME
 if [ -d "clients/$CLIENTNAME" ]
     then
