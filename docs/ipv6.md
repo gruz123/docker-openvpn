@@ -97,5 +97,5 @@ This will allow connections over IPv4 and IPv6.
 
 Generate server configuration with the udp6 or tcp6 protocol:
 
-    docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp6://VPN.SERVERNAME.COM
-    docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u tcp6://VPN.SERVERNAME.COM
+    docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn genconfig -u udp6://VPN.SERVERNAME.COM
+    docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn genconfig -u tcp6://VPN.SERVERNAME.COM

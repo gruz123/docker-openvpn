@@ -15,7 +15,7 @@ Random things I do to debug the containers.
 
         root@vpn:~/docker-openvpn# docker ps
         CONTAINER ID        IMAGE                      COMMAND             CREATED             STATUS              PORTS                    NAMES
-        ed335aaa9b82        kylemanna/openvpn:latest   ovpn_run            5 minutes ago       Up 5 minutes        0.0.0.0:1194->1194/udp   sad_lovelace
+        ed335aaa9b82        kylemanna/openvpn:latest   run            5 minutes ago       Up 5 minutes        0.0.0.0:1194->1194/udp   sad_lovelace
 
 2. Tail the logs:
 

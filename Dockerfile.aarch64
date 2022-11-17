@@ -30,7 +30,7 @@ sed -i '650iprintf "%s" "$kpass" > "$out_key_pass_tmp" && printf "%s" "$kpass" >
 # Internally uses port 1194/udp, remap using `docker run -p 443:1194/tcp`
 EXPOSE 1194/udp
 
-CMD ["ovpn_run"]
+CMD ["run"]
 
 ADD ./bin /usr/local/bin
 RUN chmod a+x /usr/local/bin/*

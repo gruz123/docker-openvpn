@@ -31,8 +31,8 @@ a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
   private key used by the newly generated certificate authority.
 
       docker volume create --name $OVPN_DATA
-      docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
-      docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki
+      docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn genconfig -u udp://VPN.SERVERNAME.COM
+      docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn initpki
 
 * Start OpenVPN server process
 
@@ -44,7 +44,7 @@ a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
 
 * Retrieve the client configuration with embedded certificates
 
-      docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
+      docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn getclient CLIENTNAME > CLIENTNAME.ovpn
 
 ## Next Steps
 
@@ -96,7 +96,7 @@ included scripts to automatically generate:
 - an EasyRSA CA key and certificate
 - a TLS auth key from HMAC security
 
-The OpenVPN server is started with the default run cmd of `ovpn_run`
+The OpenVPN server is started with the default run cmd of `run`
 
 The configuration is located in `/etc/openvpn`, and the Dockerfile
 declares that directory as a volume. It means that you can start another
@@ -107,7 +107,7 @@ To generate a client certificate, `kylemanna/openvpn` uses EasyRSA via the
 `easyrsa` command in the container's path.  The `EASYRSA_*` environmental
 variables place the PKI CA under `/etc/openvpn/pki`.
 
-Conveniently, `kylemanna/openvpn` comes with a script called `ovpn_getclient`,
+Conveniently, `kylemanna/openvpn` comes with a script called `getclient`,
 which dumps an inline OpenVPN client configuration file.  This single file can
 then be given to a client for access to the VPN.
 
@@ -148,7 +148,7 @@ packets, etc).
   simplicity.  It's highly recommended to secure the CA key with some
   passphrase to protect against a filesystem compromise.  A more secure system
   would put the EasyRSA PKI CA on an offline system (can use the same Docker
-  image and the script [`ovpn_copy_server_files`](/docs/paranoid.md) to accomplish this).
+  image and the script [`copy_server_files`](/docs/paranoid.md) to accomplish this).
 * It would be impossible for an adversary to sign bad or forged certificates
   without first cracking the key's passphase should the adversary have root
   access to the filesystem.

@@ -15,7 +15,7 @@ In order to enable two factor authentication the following steps are required.
 
 * Generate server configuration with `-2` and `-C $CIPHER` options
 
-        docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://vpn.example.com -2 -C $CIPHER
+        docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn genconfig -u udp://vpn.example.com -2 -C $CIPHER
 
 * Generate your client certificate (possibly without a password since you're using OTP)
 
@@ -23,7 +23,7 @@ In order to enable two factor authentication the following steps are required.
 
 * Generate authentication configuration for your client. -t is needed to show QR code, -i is optional for interactive usage
 
-        docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_otp_user <user>
+        docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn otp_user <user>
 
 The last step will generate OTP configuration for the provided user with the following options
 
@@ -52,7 +52,7 @@ that relies on the awesome [Google Authenticator PAM module](https://github.com/
 In this configuration the `auth` part of PAM flow is managed by OTP codes and the `account` part is not enforced
  because you're likely dealing with virtual users and you do not want to create a system account for every VPN user.
 
-`ovpn_otp_user` script will store OTP credentials under `/etc/openvpn/otp/<user>.google_authentication`. In this
+`otp_user` script will store OTP credentials under `/etc/openvpn/otp/<user>.google_authentication`. In this
  way when you take a backup OTP users are included as well.
 
 Finally it will enable the openvpn plugin `openvpn-plugin-auth-pam.so` in server configuration and append the
@@ -71,6 +71,6 @@ which pamtester
 pamtester -v openvpn <user> authenticate
 ```
 
-In the last command `<user>` should be replaced by the exact string you used in the ovpn_otp_user command.
+In the last command `<user>` should be replaced by the exact string you used in the otp_user command.
 
 If you configured everything correctly you should get authenticated by entering a OTP code from the app.

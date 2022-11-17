@@ -4,8 +4,8 @@
 # Generate OpenVPN users via google authenticator
 #
 
-if ! source "$OPENVPN/ovpn_env.sh"; then
-    echo "Could not source $OPENVPN/ovpn_env.sh."
+if ! source "$OPENVPN/env.sh"; then
+    echo "Could not source $OPENVPN/env.sh."
     exit 1
 fi
 
@@ -15,7 +15,7 @@ if [ "x$OVPN_OTP_AUTH" != "x1" ]; then
 fi
 
 if [ -z $1 ]; then
-    echo "Usage: ovpn_otp_user USERNAME"
+    echo "Usage: otp_user USERNAME"
     exit 1
 fi
 

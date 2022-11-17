@@ -13,8 +13,8 @@ set -e
 if [ -z "$OPENVPN" ]; then
     export OPENVPN="$PWD"
 fi
-if ! source "$OPENVPN/ovpn_env.sh"; then
-    echo "Could not source $OPENVPN/ovpn_env.sh."
+if ! source "$OPENVPN/env.sh"; then
+    echo "Could not source $OPENVPN/env.sh."
     exit 1
 fi
 if [ -z "$EASYRSA_PKI" ]; then

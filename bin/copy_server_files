@@ -7,8 +7,8 @@ set -e
 if [ -z "$OPENVPN" ]; then
     export OPENVPN="$PWD"
 fi
-if ! source "$OPENVPN/ovpn_env.sh"; then
-    echo "Could not source $OPENVPN/ovpn_env.sh."
+if ! source "$OPENVPN/env.sh"; then
+    echo "Could not source $OPENVPN/env.sh."
     exit 1
 fi
 
@@ -23,7 +23,7 @@ rm -rf "$TARGET/pki/private" "$TARGET/pki/issued"
 
 FILES=(
     "openvpn.conf"
-    "ovpn_env.sh"
+    "env.sh"
     "pki/private/${OVPN_CN}.key"
     "pki/issued/${OVPN_CN}.crt"
     "pki/dh.pem"

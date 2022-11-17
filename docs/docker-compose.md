@@ -21,8 +21,8 @@ services:
 * Initialize the configuration files and certificates
 
 ```bash
-docker-compose run --rm openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
-docker-compose run --rm openvpn ovpn_initpki
+docker-compose run --rm openvpn genconfig -u udp://VPN.SERVERNAME.COM
+docker-compose run --rm openvpn initpki
 ```
 
 * Fix ownership (depending on how to handle your backups, this may not be needed)
@@ -56,16 +56,16 @@ docker-compose run --rm openvpn easyrsa build-client-full $CLIENTNAME nopass
 * Retrieve the client configuration with embedded certificates
 
 ```bash
-docker-compose run --rm openvpn ovpn_getclient $CLIENTNAME > $CLIENTNAME.ovpn
+docker-compose run --rm openvpn getclient $CLIENTNAME > $CLIENTNAME.ovpn
 ```
 
 * Revoke a client certificate
 
 ```bash
 # Keep the corresponding crt, key and req files.
-docker-compose run --rm openvpn ovpn_revokeclient $CLIENTNAME
+docker-compose run --rm openvpn revokeclient $CLIENTNAME
 # Remove the corresponding crt, key and req files.
-docker-compose run --rm openvpn ovpn_revokeclient $CLIENTNAME remove
+docker-compose run --rm openvpn revokeclient $CLIENTNAME remove
 ```
 
 ## Debugging Tips

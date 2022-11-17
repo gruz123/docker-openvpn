@@ -21,4 +21,4 @@ Login to the data volume with a `bash` container, note only changes in /etc/open
 
 If you're running an old configuration and need to upgrade it to pull in the ccd directory run the following:
 
-    docker run  -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig
+    docker run  -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn genconfig

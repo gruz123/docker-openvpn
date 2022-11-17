@@ -5,8 +5,8 @@
 if [ -z "$OPENVPN" ]; then
     export OPENVPN="$PWD"
 fi
-if ! source "$OPENVPN/ovpn_env.sh"; then
-    echo "Could not source $OPENVPN/ovpn_env.sh."
+if ! source "$OPENVPN/env.sh"; then
+    echo "Could not source $OPENVPN/env.sh."
     exit 1
 fi
 if [ -z "$EASYRSA_PKI" ]; then
@@ -18,8 +18,8 @@ for name in issued/*.crt; do
     name=${name%.crt}
     name=${name#issued/}
     if [ "$name" != "$OVPN_CN" ]; then
-        ovpn_getclient "$name" separated
-        ovpn_getclient "$name" combined-save
+        getclient "$name" separated
+        getclient "$name" combined-save
     fi
 done
 popd

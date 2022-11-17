@@ -41,7 +41,7 @@ management localhost 7505
 max-clients 10
 EOF
 
-ovpn_genconfig \
+genconfig \
     -u udp://$SERV_IP \
     -f 1400 \
     -k '60 300' \
@@ -50,8 +50,8 @@ ovpn_genconfig \
     -e 'topology subnet' \
     -p 'route 172.22.22.0 255.255.255.0' \
 
-# Run ovpn_genconfig a second time with no arguments to test its repeatability.
-ovpn_genconfig
+# Run genconfig a second time with no arguments to test its repeatability.
+genconfig
 
 #
 # Simple test cases
@@ -100,7 +100,7 @@ test_config "${SERVER_CONF}" '^keepalive\s\+60\s\+300'
 # More elaborate route tests
 #
 
-ovpn_genconfig -u udp://$SERV_IP -r "172.33.33.0/24" -r "172.34.34.0/24"
+genconfig -u udp://$SERV_IP -r "172.33.33.0/24" -r "172.34.34.0/24"
 
 test_config "${SERVER_CONF}" "^route\s\+172.33.33.0\s\+255.255.255.0"
 test_config "${SERVER_CONF}" "^route\s\+172.34.34.0\s\+255.255.255.0"
@@ -110,7 +110,7 @@ test_config "${SERVER_CONF}" "^route\s\+172.34.34.0\s\+255.255.255.0"
 # Block outside DNS test
 #
 
-ovpn_genconfig -u udp://$SERV_IP -b
+genconfig -u udp://$SERV_IP -b
 
 test_not_config "${SERVER_CONF}" '^push "block-outside-dns"'
 cat ${SERVER_CONF} >&1
