@@ -11,7 +11,7 @@ fi
 echo "How many users ? 1-25"
 read q
 if [[ "${q}" =~ ^([0-9]) ]]; then
-   if [[ $q -lt 25 ]]
+   if [[ $q -lt 26 ]]
    then 
 t=$(($e+$q))
 for (( i=1; i <= $t; i++ ))
