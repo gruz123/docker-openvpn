@@ -8,7 +8,7 @@ if [ -d "clients/$CLIENTNAME" ]
     e=0
     mkdir clients/$CLIENTNAME
 fi
-echo "quantity? 1-25"
+echo "How many users ? 1-25"
 read q
 if [[ "${q}" =~ ^([0-9]) ]]; then
    if [[ $q -lt 25 ]]
