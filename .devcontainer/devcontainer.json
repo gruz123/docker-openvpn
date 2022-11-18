@@ -12,7 +12,9 @@
 		"EmailUN": "gruz123@gmail.com",
 		"EmailPW": "16",
 		"SMTP": "smtp.gmail.com:465",
-		"Encryption": "STARTTLS"
+		"Encryption": "STARTTLS",
+		"chat_id": "botToken-1001111111125",
+		"botToken": "AAaaAAaaAaAAaaAAAaaAAaaaaaAaA21AAAA"
 	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
