@@ -4,11 +4,11 @@ read -r CLIENTNAME
 if [ -d "$OPENVPN/clients/$CLIENTNAME" ]
     then
     #e="$(ls clients/"$CLIENTNAME"/*.ovpn | wc -l)" || :
-    p=($OPENVPN/clients/"$CLIENTNAME"/*.ovpn) || :
+    p=("$OPENVPN"/clients/"$CLIENTNAME"/*.ovpn) || :
     e=${#p[@]}
     else 
     e=0
-    mkdir -p $OPENVPN/clients/"$CLIENTNAME"
+    mkdir -p "$OPENVPN"/clients/"$CLIENTNAME"
 fi
 echo "How many users ? 1-25"
 read -r q
@@ -19,7 +19,7 @@ t=$((e+q))
 for (( i=1; i <= t; i++ ))
 do
 easyrsa --passin=pass:"$(cat "$OPENVPN"/psk)"  build-client-full "$CLIENTNAME$i" nopass
-getclient "$CLIENTNAME$i" > $OPENVPN/clients/"$CLIENTNAME"/"$CLIENTNAME$i".ovpn
+getclient "$CLIENTNAME$i" > "$OPENVPN"/clients/"$CLIENTNAME"/"$CLIENTNAME$i".ovpn
 done
 echo "added $q, total =$t"
    else 
