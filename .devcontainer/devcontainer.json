@@ -13,8 +13,8 @@
 		"EmailPW": "16",
 		"SMTP": "smtp.gmail.com:587",
 		"Encryption": "STARTTLS",
-		"chat_id": "botToken-1001111111125",
-		"botToken": "AAaaAAaaAaAAaaAAAaaAAaaaaaAaA21AAAA"
+		"chat_id": "-1001111111125",
+		"botToken": "1111222244:AAaaAAaaAaAAaaAAAaaAAaaaaaAaA21AAAA"
 	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
