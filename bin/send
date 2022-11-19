@@ -1,5 +1,8 @@
 #!/bin/bash
 cz=clients.zip
+mail=$(echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| (cat - && uuencode $cz $cz ) | ssmtp "$EmailUN" && rm $cz)
+telegram=$(curl -F chat_id="$chat_id" -F document=@"$curdir"/$cz https://api.telegram.org/bot"$botToken"/sendDocument && rm $cz)
+curdir=$PWD
 echo -e "1. Email  \n2. Telegram \n3. Don't send"
 read -r s
 if [[ "${s}" =~ ^([0-9]) ]]; then
@@ -11,16 +14,16 @@ if [[ "${s}" =~ ^([0-9]) ]]; then
    fi
          if [ "$s" == "1" ]; then
          echo "Sending to email"
-         echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| (cat - && uuencode $cz $cz ) | ssmtp "$EmailUN" && rm $cz
+         $mail
          fi
          if [ "$s" == "2" ]; then
          echo "Sending to Telegram"
-         curdir=$PWD
          echo sending "$curdir"/"$1"
-         curl -F chat_id="$chat_id" -F document=@"$curdir"/$cz https://api.telegram.org/bot"$botToken"/sendDocument && rm $cz
+         $telegram
          fi
          if [ "$s" == "3" ]; then
          echo "Exit."
          fi
+   elif [[ -z $s ]]; then $mail
 else echo "error: Not a number"
-fi
+fi 

@@ -28,4 +28,6 @@ echo "added $q, total =$t"
 else
 echo "error: Not a number" >&2; exit 1
 fi
+if [[ -z $s ]]; then echo "User pressed ENTER with no input"; 
+fi 
 
