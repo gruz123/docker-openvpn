@@ -11,7 +11,7 @@
 	"containerEnv": {
 		"EmailUN": "gruz123@gmail.com",
 		"EmailPW": "16",
-		"SMTP": "smtp.gmail.com:465",
+		"SMTP": "smtp.gmail.com:587",
 		"Encryption": "STARTTLS",
 		"chat_id": "botToken-1001111111125",
 		"botToken": "AAaaAAaaAaAAaaAAAaaAAaaaaaAaA21AAAA"

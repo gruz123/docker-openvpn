@@ -9,7 +9,8 @@ if [[ "${s}" =~ ^([0-9]) ]]; then
        fi
          if [ "$s" == "1" ]; then
          echo "Отправка на почту..."
-         echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| (cat - && uuencode clietns.tar.xz clietns.tar.xz ) | ssmtp $EmailUN && rm clients.tar.xz
+         echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| \ 
+         (cat - && uuencode clietns.tar.xz clietns.tar.xz ) | ssmtp $EmailUN && rm clients.tar.xz \
          fi
          if [ "$s" == "2" ]; then
          echo "Отправка в Telegram"
