@@ -1,11 +1,12 @@
 #!/bin/bash
-cz=clients.tar.xz
+cz=clients.zip
 echo -e "1. Email  \n2. Telegram \n3. Don't send"
 read -r s
 if [[ "${s}" =~ ^([0-9]) ]]; then
    if [[ $s -lt 4 ]]; then
        echo "Archiving..."
-       tar -cJf $cz "$OPENVPN"/clients/"$CLIENTNAME" || :
+       #tar -cJf $cz "$OPENVPN"/clients/"$CLIENTNAME" || :
+       zip -r $cz "$OPENVPN"/clients/"$CLIENTNAME"
    else echo "error: wrong number"
    fi
          if [ "$s" == "1" ]; then
