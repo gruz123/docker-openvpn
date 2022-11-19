@@ -1,29 +1,25 @@
 #!/bin/bash
 cz=clients.tar.xz
 echo -e "1. Email  \n2. Telegram \n3. Don't send"
-read s
+read -r s
 if [[ "${s}" =~ ^([0-9]) ]]; then
    if [[ $s -lt 4 ]]; then
-      echo "Archiving..."
-       tar -cJf $cz "$OPENVPN"/clients/$CLIENTNAME || :
-       fi
+       echo "Archiving..."
+       tar -cJf $cz "$OPENVPN"/clients/"$CLIENTNAME" || :
+   else echo "error: wrong number"
+   fi
          if [ "$s" == "1" ]; then
          echo "Sending to email"
-         echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| (cat - && uuencode $cz $cz ) | ssmtp $EmailUN && rm $cz
+         echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| (cat - && uuencode $cz $cz ) | ssmtp "$EmailUN" && rm $cz
          fi
          if [ "$s" == "2" ]; then
          echo "Sending to Telegram"
          curdir=$PWD
-         echo sending $curdir/$1
-         curl -F chat_id=$chat_id -F document=@$curdir/$cz https://api.telegram.org/bot$botToken/sendDocument && rm $cz
+         echo sending "$curdir"/"$1"
+         curl -F chat_id="$chat_id" -F document=@"$curdir"/$cz https://api.telegram.org/bot"$botToken"/sendDocument && rm $cz
          fi
          if [ "$s" == "3" ]; then
          echo "Exit."
          fi
-         else
-      echo "error: Wrong number"
-   fi        
-else
-echo "error: Not a number" >&2; exit 1
+else echo "error: Not a number"
 fi
-  
