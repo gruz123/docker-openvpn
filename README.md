@@ -77,7 +77,6 @@ docker-compose run --rm openvpn quickstart
 * ### 3. To add more clients with same or different prefix 
 ```bash
 docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn adduser
-Send user configuration to Email or Telegram 
 ```
 * ### 4.  Send users configurations by email or telegram
 
