@@ -1,4 +1,4 @@
 #!/bin/bash
-genconfig -D -c -u udp://$(curl -s http://whatismyip.akamai.com/ | cut -b 1-16)
+genconfig -u udp://$(curl -s http://whatismyip.akamai.com/ | cut -b 1-16)
 initpki
 adduser
