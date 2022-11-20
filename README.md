@@ -60,9 +60,13 @@ https://myaccount.google.com/apppasswords
 ```bash
 docker-compose run --rm openvpn quickstart
 ```
-* Generate clients certificates without a passphrase
-* Retrieve the clients configuration with embedded certificates
-* prefix (username) and quantity.
+* Automatically: 
+  * Set external ip
+  * Build server with passphrase
+  * Generate clients certificates without a passphrase
+  * Retrieve the clients configuration with embedded certificates
+* User input   
+  * prefix (username) and quantity.
   * As an example:
   * set Prefix: `Halifax`
   * set quantity: 12
