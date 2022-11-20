@@ -1,20 +1,24 @@
 #!/bin/bash
 echo "Set prefix(Name)"
 read -r CLIENTNAME
-if [ -d "$OPENVPN/clients/$CLIENTNAME" ]
-    then
-    #e="$(ls clients/"$CLIENTNAME"/*.ovpn | wc -l)" || :
-    p=("$OPENVPN"/clients/"$CLIENTNAME"/*.ovpn) || :
-    e=${#p[@]}
-    else 
-    e=0
-    mkdir -p "$OPENVPN"/clients/"$CLIENTNAME"
+if [[ "${CLIENTNAME}" =~ ^([a-zA-Z0-9._-]) ]]; then
+   if [ -d "$OPENVPN/clients/$CLIENTNAME" ]; then
+      #e="$(ls clients/"$CLIENTNAME"/*.ovpn | wc -l)" || :
+      p=("$OPENVPN"/clients/"$CLIENTNAME"/*.ovpn) || :
+      e=${#p[@]}
+   else 
+      e=0
+      mkdir -p "$OPENVPN"/clients/"$CLIENTNAME"
+   fi
+#elif
+#      [[ -z $CLIENTNAME ]]; then echo "Pressed ENTER with no input"  >&2; exit 1;
+else
+echo "Only "a-z A-Z 0-9 . _ -" allowed" >&2; exit 1;
 fi
 echo "How many users ? 1-25"
 read -r q
 if [[ "${q}" =~ ^([0-9]) ]]; then
-   if [[ $q -lt 26 ]]
-   then 
+   if [[ $q -lt 26 ]]; then 
 t=$((e+q))
 for (( i=1; i <= t; i++ ))
 do
@@ -23,11 +27,11 @@ getclient "$CLIENTNAME$i" > "$OPENVPN"/clients/"$CLIENTNAME"/"$CLIENTNAME$i".ovp
 done
 echo "added $q, total =$t"
    else 
-      echo "allowed only 25 users per request"
+      echo "allowed only 25 users per request" 
    fi
+elif
+      [[ -z $q ]]; then echo "ENTER pressed with no input"
 else
 echo "error: Not a number" >&2; exit 1
 fi
-if [[ -z $s ]]; then echo "User pressed ENTER with no input"; 
-fi 
 

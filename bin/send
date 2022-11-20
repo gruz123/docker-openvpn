@@ -1,29 +1,25 @@
 #!/bin/bash
-cz=clients.zip
-mail=$(echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| (cat - && uuencode $cz $cz ) | ssmtp "$EmailUN" && rm $cz)
-telegram=$(curl -F chat_id="$chat_id" -F document=@"$curdir"/$cz https://api.telegram.org/bot"$botToken"/sendDocument && rm $cz)
-curdir=$PWD
-echo -e "1. Email  \n2. Telegram \n3. Don't send"
+echo -e "1. Email (Default)  \n2. Telegram \n3. Don't send"
 read -r s
-if [[ "${s}" =~ ^([0-9]) ]]; then
-   if [[ $s -lt 4 ]]; then
-       echo "Archiving..."
-       #tar -cJf $cz "$OPENVPN"/clients/"$CLIENTNAME" || :
-       zip -r $cz "$OPENVPN"/clients/"$CLIENTNAME"
-   else echo "error: wrong number"
-   fi
-         if [ "$s" == "1" ]; then
-         echo "Sending to email"
-         $mail
-         fi
-         if [ "$s" == "2" ]; then
-         echo "Sending to Telegram"
-         echo sending "$curdir"/"$1"
-         $telegram
-         fi
-         if [ "$s" == "3" ]; then
-         echo "Exit."
-         fi
-   elif [[ -z $s ]]; then $mail
-else echo "error: Not a number"
-fi 
+cz=clients.zip
+fdir=$PWD
+function mail () {
+   echo -e "to: $EmailUN\nsubject: Clients OVPN\n"| (cat - && uuencode $cz $cz )| ssmtp "$EmailUN" && rm $cz
+   }
+function tlg () {
+   curl -F chat_id="$chat_id" -F document=@"$fdir"/$cz https://api.telegram.org/bot"$botToken"/sendDocument && rm $cz
+   }  
+#tar -cJf $cz "$OPENVPN"/clients/"$CLIENTNAME" || :
+function zi () {
+   zip -j -r "$cz" "$OPENVPN"/clients/"$CLIENTNAME"
+   }
+      if [ "$s" == "1" ]; then
+        echo "Sending to email" ;
+         zi; mail
+    elif [ "$s" == "2" ]; then
+        echo "Sending to Telegram"
+         zi; tlg
+    elif [ "$s" == "3" ]; then
+         echo "Exit." >&2; exit 1
+else echo "$s not an option, send mail"; zi; mail;
+fi
