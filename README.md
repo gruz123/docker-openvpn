@@ -153,7 +153,6 @@ advanced configurations are available in this
 ### Continue from step 3 in quick start to finish configuration.
 #
 
-
 ## Debugging Tips
 
 * Create an environment variable with the name DEBUG and value of 1 to enable debug output (using "docker -e").
