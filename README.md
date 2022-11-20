@@ -99,16 +99,23 @@ docker-compose up -d openvpn
 docker-compose logs -f
 ```
 
+## Custom settings.
+
 * ip/fqdn, port number and protocol (UDP to TCP) can be changed here (on host):
 
 ```bash
 openvpn-data/conf/env.sh
 ```
 * for switching UDP to TCP needed
-to be changed here also (don't need to change port number here):
+to be changed here also, for client configuration files. (don't need to change port number here):
 ```bash
 openvpn-data/conf/openvpn.conf
   ```
+
+### More about tcp
+
+advanced configurations are available in this
+[docs](docs/tcp.md) page.
 
 ## Debugging Tips
 
