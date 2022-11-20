@@ -99,7 +99,38 @@ docker-compose up -d openvpn
 docker-compose logs -f
 ```
 
-## Custom settings.
+## Regular start and custom settings.
+
+```bash
+docker-compose run --rm openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
+docker-compose run --rm openvpn ovpn_initpki
+```
+
+* More options.
+
+	      -u SERVER_PUBLIC_URL
+	      [-e EXTRA_SERVER_CONFIG ]
+	      [-E EXTRA_CLIENT_CONFIG ]
+	      [-f FRAGMENT ]
+	      [-n DNS_SERVER ...]
+	      [-p PUSH ...]
+	      [-r ROUTE ...]
+	      [-s SERVER_SUBNET]
+
+        optional arguments:
+      	-2    Enable two factor authentication using Google Authenticator.
+	      -a    Authenticate  packets with HMAC using the given message digest algorithm (auth).
+	      -b    Disable 'push block-outside-dns'
+	      -c    Enable client-to-client option
+	      -C    A list of allowable TLS ciphers delimited by a colon (cipher).
+	      -d    Disable default route
+	      -D    Do not push dns servers
+	      -k    Set keepalive. Default: '10 60'
+	      -m    Set client MTU
+	      -N    Configure NAT to access external server network
+	      -t    Use TAP device (instead of TUN device)
+	      -T    Encrypt packets with the given cipher algorithm instead of the default one (tls-cipher).
+	      -z    Enable comp-lzo compression.
 
 * ip/fqdn, port number and protocol (UDP to TCP) can be changed here (on host):
 
