@@ -13,7 +13,7 @@ Note that some client software might be picky about which configuration format i
 
 See an overview of the configured clients, including revocation and expiration status:
 
-    docker run --rm -it -v $OVPN_DATA:/etc/openvpn kylemanna/openvpn listclients
+    docker run --rm -it -v $OVPN_DATA:/etc/openvpn gruz123/ovpn listclients
 
  The output is generated using `openssl verify`. Error codes from the verification process different from `X509_V_ERR_CERT_HAS_EXPIRED` or `X509_V_ERR_CERT_REVOKED` will show the status `INVALID`.
 
@@ -23,7 +23,7 @@ If you have more than a few clients, you will want to generate and update your c
 
 Execute the following to generate the configuration for all clients:
 
-    docker run --rm -it -v $OVPN_DATA:/etc/openvpn --volume /tmp/openvpn_clients:/etc/openvpn/clients kylemanna/openvpn getclient_all
+    docker run --rm -it -v $OVPN_DATA:/etc/openvpn --volume /tmp/openvpn_clients:/etc/openvpn/clients gruz123/ovpn getclient_all
 
 After doing so, you will find the following files in each of the `$cn` directories:
 
@@ -38,10 +38,10 @@ After doing so, you will find the following files in each of the `$cn` directori
 
 Revoke `client1`'s certificate and generate the certificate revocation list (CRL) using [`revokeclient`](/bin/revokeclient) script :
 
-    docker run --rm -it -v $OVPN_DATA:/etc/openvpn kylemanna/openvpn revokeclient client1
+    docker run --rm -it -v $OVPN_DATA:/etc/openvpn gruz123/ovpn revokeclient client1
 
 The OpenVPN server will read this change every time a client connects (no need to restart server) and deny clients access using revoked certificates.
 
 You can optionally pass `remove` as second parameter to revokeclient to remove the corresponding crt, key and req files :
 
-    docker run --rm -it -v $OVPN_DATA:/etc/openvpn kylemanna/openvpn revokeclient client1 remove
+    docker run --rm -it -v $OVPN_DATA:/etc/openvpn gruz123/ovpn revokeclient client1 remove

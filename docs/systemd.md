@@ -23,8 +23,8 @@ To use and enable automatic start by systemd:
    
 2. Initialize the data container, but don't start the container :
    
-       docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn genconfig -u udp://VPN.SERVERNAME.COM
-       docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn initpki
+       docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn genconfig -u udp://VPN.SERVERNAME.COM
+       docker run -v $OVPN_DATA:/etc/openvpn --rm -it gruz123/ovpn initpki
    
 3. Download the [docker-openvpn@.service](https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/init/docker-openvpn%40.service)
    file to `/etc/systemd/system`:
