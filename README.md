@@ -100,7 +100,7 @@ docker-compose up -d openvpn
 docker-compose logs -f
 ```
 
-## Regular start and custom settings.
+## Regular start with docker-compose and custom settings.
 
 ```bash
 docker-compose run --rm openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
