@@ -27,7 +27,7 @@ Auto install/config, users auto creation, send configs/backup by email or Telegr
 # Quick Start with docker-compose
 
 
-* Add a new service in docker-compose.yml
+* ### 1. Add a new service in docker-compose.yml
 
 ```yaml
 version: '2'
@@ -53,9 +53,9 @@ services:
  
 Usual gmail pwd ain't' gonna work
 https://myaccount.google.com/apppasswords
+#
 
-
-* Initialize the configuration files and certificates
+* ### 2. Initialize the configuration files and certificates
 
 ```bash
 docker-compose run --rm openvpn quickstart
@@ -71,29 +71,31 @@ docker-compose run --rm openvpn quickstart
   * set Prefix: `Halifax`
   * set quantity: 12
   * it creates: `Halifax1.ovpn`, `Halifax2.ovpn` ...`Halifax12.ovpn`
+  #
 
   
-To add more with same or different prefix 
+* ### 3. To add more with cleints same or different prefix 
+```bash
+docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn adduser
+Send user configuration to Email or Telegram 
+```
+* ### 4.  Send users configurations by email or telegram
 
-      docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn adduser
-
- Send user configuration to Email or Telegram 
-
-      docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn send
-
-* Fix ownership (depending on how to handle your backups, this may not be needed)       
+```bash
+docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn send
+```
+* ### 5. Fix ownership (depending on how to handle your backups, this may not be needed)       
 
 ```bash
 sudo chown -R $(whoami): ./openvpn-data
 ```
-
-* Start OpenVPN server process
+* ### 6. Start OpenVPN server process
 
 ```bash
 docker-compose up -d openvpn
 ```
 
-* You can access the container logs with
+* ### 7. You can access the container logs with
 
 ```bash
 docker-compose logs -f
@@ -132,6 +134,7 @@ docker-compose run --rm openvpn ovpn_initpki
 	      -T    Encrypt packets with the given cipher algorithm instead of the default one (tls-cipher).
 	      -z    Enable comp-lzo compression.
 
+
 * ip/fqdn, port number and protocol (UDP to TCP) can be changed here (on host):
 
 ```bash
@@ -142,11 +145,14 @@ to be changed here also, for client configuration files. (don't need to change p
 ```bash
 openvpn-data/conf/openvpn.conf
   ```
-
 ### More about tcp
 
 advanced configurations are available in this
 [docs](docs/tcp.md) page.
+#
+### Continue from step 3 in quick start to finish configuration.
+#
+
 
 ## Debugging Tips
 
@@ -155,32 +161,6 @@ advanced configurations are available in this
 ```bash
 docker-compose run -e DEBUG=1 -p 1194:1194/udp openvpn
 ```
- ### Old way
-  Old way if you need to set ip, fqdn, port (number and protocol) by you own during installation
-
-* Initialize the configuration files and certificates
-
-```bash
-docker-compose run --rm openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
-docker-compose run --rm openvpn ovpn_initpki
-```
-
-* Generate a client certificate
-
-```bash
-export CLIENTNAME="your_client_name"
-# with a passphrase (recommended)
-docker-compose run --rm openvpn easyrsa build-client-full $CLIENTNAME
-# without a passphrase (not recommended)
-docker-compose run --rm openvpn easyrsa build-client-full $CLIENTNAME nopass
-```
-
-* Retrieve the client configuration with embedded certificates
-
-```bash
-docker-compose run --rm openvpn getclient $CLIENTNAME > $CLIENTNAME.ovpn
-```
-
 * Revoke a client certificate
 
 ```bash
