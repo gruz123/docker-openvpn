@@ -76,12 +76,12 @@ docker-compose run --rm openvpn quickstart
   
 * ### 3. To add more clients with same or different prefix 
 ```bash
-docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn adduser
+docker-compose run --rm openvpn adduser
 ```
 * ### 4.  Send users configurations by email or telegram
 
 ```bash
-docker run -v $OVPN_DATA:/etc/openvpn --rm gruz123/ovpn send
+docker-compose run --rm openvpn send
 ```
 * ### 5. Fix ownership (depending on how to handle your backups, this may not be needed)       
 
