@@ -23,7 +23,7 @@ ENV SSMTPC=/etc/ssmtp/ssmtp.conf
 VOLUME ["/etc/openvpn"]
 
 # use randmon passphrase and log it to /psk
-RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649ikpass=$(shuf -i 1000000-9999999 -n 1)' $EASYRSA_FILE && \ 
+RUN sed -i '649,662d' $EASYRSA_FILE && sed -i '649ikpass=$(shuf -i 10000000-99999999 -n 1)' $EASYRSA_FILE && \
 sed -i '650iprintf "%s" "$kpass" > "$out_key_pass_tmp" && printf "%s" "$kpass" > "$OPENVPN/psk"' $EASYRSA_FILE
 
 
